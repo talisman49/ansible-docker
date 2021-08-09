@@ -1,0 +1,28 @@
+---
+- hosts: web
+  tasks:
+    #    - name: Generate key
+    #  openssh_keypair:
+    #    path: app
+    - name: Create user
+      user:
+        name: app
+        home: /home/app
+        generate_ssh_key: no
+    - name: Assert .ssh directory
+      file:
+        dest: /home/app/.ssh
+        state: directory
+        owner: app
+        mode: '0700'
+    - name: Install public SSH key
+      copy:
+        src: app.pub
+        dest: /home/app/.ssh/app.pub
+        owner: app
+        mode: '0600'
+    - name: Install authorized key
+      authorized_key:
+        user: app
+        state: present
+        key: "{{ lookup('file', 'app.pub') }}"
