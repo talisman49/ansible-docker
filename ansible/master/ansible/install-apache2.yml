@@ -1,0 +1,8 @@
+---
+- hosts: web
+  tasks:         
+    - name: instalar Apache2
+      apt:
+        name: apache2
+
+      

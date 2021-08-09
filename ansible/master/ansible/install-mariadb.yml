@@ -1,0 +1,9 @@
+---
+- hosts: db         
+    - name: instalar MariaDB
+      apt:
+        name: mariadb-server
+        state: present
+        update_cache: yes
+      become: true
+      

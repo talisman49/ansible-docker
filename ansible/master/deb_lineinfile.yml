@@ -1,0 +1,6 @@
+  - hosts: all
+    tasks: 
+      - ansible.builtin.lineinfile:
+        path: /etc/selinux/holamundo.ext
+        regexp: '^MUNDO='
+        line: MUNDO=enforcing

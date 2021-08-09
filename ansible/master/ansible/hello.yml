@@ -1,0 +1,6 @@
+- hosts: all
+  tasks: 
+    - name: install facter
+      apt:
+        name: facter
+        
