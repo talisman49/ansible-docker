@@ -1,0 +1,10 @@
+version: "3.0"
+
+services:
+  
+  hello:
+    image: 10.250.4.3:5050/esteban/hello-spring-testing:testing
+    build: .
+    ports:
+      - "8081:8080"
+

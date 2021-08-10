@@ -15,6 +15,8 @@
         name: app
         home: /home/app
         generate_ssh_key: no
+        groups:
+          - docker
     - name: Assert .ssh directory
       file:
         dest: /home/app/.ssh
@@ -27,8 +29,34 @@
         dest: /home/app/.ssh/app.pub
         owner: app
         mode: '0600'
-    - name: Install authorized key
-      authorized_key:
-        user: app
-        state: present
-        key: "{{ lookup('file', 'app.pub') }}"
+    - name: Crear directorio
+      file:
+        dest: /home/app/hello-spring
+        state: directory
+        owner: app
+        group: app
+        mode: '0755'
+    - name: Instalar docker-compose
+      copy:
+        src: files/docker-compose.yml
+        dest: /home/app/hello-spring/docker-compose.yml
+        owner: app
+        group: app
+        mode: '0644'
+    - name: crear directorio .docker
+      file:
+        dest: /home/app/.docker
+        state: directory
+        owner: app
+        group: app
+        mode: '0700'    
+    - name: Instalar config.json
+      copy:
+        src: /home/viewadmin/.docker/config.json
+        dest: /home/app/.docker/config.json
+        owner: app
+        group: app
+        mode: '0600'
+
+
+          
